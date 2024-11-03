@@ -1,0 +1,95 @@
+package StudentGradeAnalyzer;
+
+import java.util.Scanner;
+
+public class Main {
+    /*
+        Topics: 2D arrays, arrays, methods, for-each loop, OOPs, constructors
+
+Create a Student class with fields for the student's name and an array of grades.
+Implement a constructor that initializes the student's name and grades.
+Write methods to calculate the average grade, find the highest and lowest grades, and determine if the student has passed (with an average grade above a certain threshold).
+Use a 2D array or an ArrayList to store multiple Student objects.
+Use a for-each loop to iterate over the students and display their names and average grades.*/
+    public static void main(String[] args) {
+
+        Scanner input= new Scanner(System.in);
+        System.out.println("For how many students do you wanna store the data of?");
+        int getint= input.nextInt();
+
+        for (int i =1; i<=getint; i++){
+            System.out.println("What is the name of the student"+i+"?");
+            String name = input.next();
+            System.out.println("What is the age of student"+i+"?");
+            int age = input.nextInt();
+            System.out.println("What is the grade at computer science?");
+            int CSmarks = input.nextInt();
+            System.out.println("What is the grade at English?");
+            int Engmarks = input.nextInt();
+            System.out.println("What is the grade at Maths?");
+            int Mathsmarks = input.nextInt();
+            studentdata StuInput = new studentdata(name,age,CSmarks,Mathsmarks,Engmarks);
+            StuInput.showDB();
+
+
+        }
+        studentdata nullInput = new studentdata(null,0,0,0,0);
+        nullInput.showDB();
+
+
+    }
+}
+
+** This is the previous code of this package,
+here the main class which is a static class tried to call the part of a non static class(studentdata), where normally we cannot
+access non static stuff from a static class. So to make it work we made the required instance(database) of the non static class into static
+type.
+
+Otherwise what was happening was that every  iteration of data input  was creating a new copy of the database instance.
+Hence, showing the database at last was presenting the last updated data.
+
+
+
+
+
+
+
+package StudentGradeAnalyzer;
+
+import java.util.ArrayList;
+
+public class studentdata {
+
+    String name;
+    int age;
+    double CSmarks;
+    double Mathsmarks;
+    double Engmarks;
+    ArrayList<ArrayList<String>> database = new ArrayList<>();
+    ArrayList<String> stuBio = new ArrayList<>();
+    ArrayList<String> grades= new ArrayList<>();
+    studentdata(String name, int age, double CSmarks, double Mathsmarks, double Engmarks){
+        this.name = name;
+        this.age= age;
+        this.CSmarks= CSmarks;
+        this.Engmarks= Engmarks;
+        this.Mathsmarks= Mathsmarks;
+
+        stuBio.add(name);
+        stuBio.add(String.valueOf(age));
+
+        grades.add(String.valueOf(CSmarks));
+        grades.add(String.valueOf(Mathsmarks));
+        grades.add(String.valueOf(Engmarks));
+
+        database.add(stuBio);
+        database.add(grades);
+
+
+        }
+        void showDB(){
+            System.out.println(database);
+        }
+
+
+}
